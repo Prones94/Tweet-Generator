@@ -1,11 +1,4 @@
-from python_quote import random_python_quote
+from python_quote import random_python_quote as quote
 
-quotes = (
-    "It's just a flesh wound",
-    "He's not the Messiah. He's a very naughty boy!",
-    "THIS IS AN EX-PARROT!!"
-)
-
-if __name__ == '__main__':
-    quote = random_python_quote()
-    print(quote)
+random_quote = quote()
+print(random_quote)
