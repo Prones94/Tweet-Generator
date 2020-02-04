@@ -14,25 +14,22 @@ def unique_words(show_histogram):
     count = 0
     for word in show_histogram.keys():
         if show_histogram.get(word) == 1:
-            count +=1
+            count += 1
 
 def frequency_word(word, show_histogram):
     return show_histogram.get(word)
 
 def histogram_list():
-    filename = "histogram.txt"
+    filename = "/Users/admin/Desktop/MAKE/CS/CS-1.2-Intro-Data-Structures/CS1.2/Tweet-Generator/histogram.txt"
     with open(filename, 'r') as f:
         lines = f.read().split()
-    list_histogram = []
-    for word in lines:
-        list_of_words = [word,0]
-        for word_two in lines:
-            if word == word_two:
-                list_histogram[1] += 1
-        if list_of_words not in list_histogram:
-            list_histogram.append(list_histogram)
+        list_histogram = {}
+        for word in lines:
+            word_count = list_histogram.get(word, 0)
+            list_histogram[word] = word_count + 1
     return list_histogram
 
 if __name__ == "__main__":
     stored_histo_list = histogram_list()
-    print(frequency_word('for', stored_histo_list))
+    print(stored_histo_list)
+    # print(frequency_word('for', stored_histo_list))
