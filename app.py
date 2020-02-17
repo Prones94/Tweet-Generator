@@ -11,4 +11,4 @@ def generate_words():
     return random_sentence(5, words)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
