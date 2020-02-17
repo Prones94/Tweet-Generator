@@ -1,5 +1,6 @@
 from flask import Flask
-from dictionary_words import random_sentence
+import sample
+# from dictionary_words import random_sentence
 
 app = Flask(__name__)
 

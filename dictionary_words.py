@@ -5,7 +5,7 @@ from python_quote import random_python_quote
 def random_sentence(sentence_length, words):
     new_sentence = ""
     for _ in range(sentence_length):
-        word = random_python_quote(words)
+        word = random_python_quote()
         new_sentence += word + " "
     return new_sentence
 
