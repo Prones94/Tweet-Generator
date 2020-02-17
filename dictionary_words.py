@@ -1,6 +1,10 @@
-import os, random
-import sys as sys
+import random
+import sys 
 from python_quote import random_python_quote
+
+quotes = ("It's just a flesh wound.",
+          "He's not the Messiah. He's a very naught boy!",
+          "ThIS IS AN EX-PARROT!!")
 
 def random_sentence(sentence_length, words):
     new_sentence = ""
