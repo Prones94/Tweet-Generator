@@ -17,3 +17,9 @@ def sample(histogram):
         if fence >= dart:   # Check if this word's fence is past the dart
             # Fence is past the dart, so choose this word
             return word
+
+if __name__ == '__main__':
+    words = sample(histogram)
+    print(words)
+        
+        
