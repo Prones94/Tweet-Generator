@@ -34,22 +34,22 @@ class Dictogram(dict):
             if dart <= total:
                 return each[0]
 
-def print_histogram(word_list):
+def print_dictogram(word_list):
     print()
-    print('Histogram:')
+    print('Dictogram:')
     print('word list: {}'.format(word_list))
-    histogram = Dictogram(word_list)
-    print('dictogram: {}'.format(histogram))
-    print('{} tokens, {} types'.format(histogram.tokens, histogram.types))
+    dictogram = Dictogram(word_list)
+    print('dictogram: {}'.format(dictogram))
+    print('{} tokens, {} types'.format(dictogram.tokens, dictogram.types))
     for word in word_list[-2:]:
-        freq = histogram.frequency(word)
+        freq = dictogram.frequency(word)
         print('{!r} occurs {} times'.format(word, freq))
     print()
-    print_histogram_samples(histogram)
+    print_dictogram_samples(dictogram)
 
-def print_histogram_samples(histogram):
-    print('Histogram samples:')
-    samples_list = [histogram.sample() for _ in range(1000)]
+def print_dictogram_samples(dictogram):
+    print('Dictogram samples:')
+    samples_list = [dictogram.sample() for _ in range(1000)]
     samples_hist = Dictogram(samples_list)
     print('samples: {}'.format(samples_hist))
     print()
@@ -63,8 +63,8 @@ def print_histogram_samples(histogram):
     yellow = '\033[33m'
     red = '033[31m'
     reset = '\033[m'
-    for word, count in histogram.items():
-        observed_freq = count / histogram.tokens
+    for word, count in dictogram.items():
+        observed_freq = count / dictogram.tokens
         samples = samples_hist.frequency(word)
         sampled_freq = samples / samples_hist.tokens
         error = (sampled_freq - observed_freq) / observed_freq
@@ -80,15 +80,15 @@ def main():
     import sys
     arguments = sys.argv[1:]
     if len(arguments) >= 1:
-        print_histogram(arguments)
+        print_dictogram(arguments)
     else:
         word = 'abracdabra'
-        print_histogram(list(word))
+        print_dictogram(list(word))
         fish_text = 'one fish two fish red fish  blue fish'
-        print_histogram(fish_text.split())
+        print_dictogram(fish_text.split())
         woodchuck_text = ('how much wood would a wood chuck chuck'
                             'if a wood chuck could chuck wood')
-        print_histogram(woodchuck_text.split())
+        print_dictogram(woodchuck_text.split())
 
 
 if __name__ == "__main__":

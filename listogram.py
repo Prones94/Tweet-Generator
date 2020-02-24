@@ -76,7 +76,7 @@ def print_gram(word_list):
     print_samples(histogram)
 
 def print_samples(histogram):
-    print('Histogram samples:')
+    print('Listogram samples:')
     sample_listo = [histogram.sample() for _ in range (10000)]
     sample_histo = Listogram(sample_listo)
     print('Sample: {}'.format(sample_histo))

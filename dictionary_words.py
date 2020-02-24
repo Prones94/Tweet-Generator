@@ -16,7 +16,7 @@ def random_sentence(sentence_length, words):
 
 
 if __name__ == "__main__":
-    with open('histogram.txt', 'r') as f:
+    with open('words.txt', 'r') as f:
         words = f.read().split(' ')
 
     sentence_length = int(sys.argv[1])

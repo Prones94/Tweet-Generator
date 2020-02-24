@@ -26,19 +26,36 @@ class MarkovChain:
                 markov_chain[current_word] = Dictogram([next_word])
         return markov_chain
 
+    def random_word(self):
+        word = choice(list(self.markov_chain.keys()))
+        return word
+
     def walk(self, num_words):
         # TODO: generate a sentence num_words long using the markov chain
-        sentence = []
-        random_key = [key for key in num_words.keys()]
+        sentence = ""
+        first_word = self.random_word()
+        print('The first word is ' + first_word)
+        sentence += first_word + " "
 
-        i = 0
-        while i < 5:
-            output = choice(random_key)
-            sentence.append(output)
-            i += 1
-
-        return " ".join(sentence) 
-
+        index = 0
+        while index < num_words:
+            current_word = first_word
+            for word, histogram in self.markov_chain.items():
+                if current_word == word:
+                    word_in_dictogram = histogram.dictionary_histogram
+                    print('From this word: ' + word + ". Dictogram sample will be " + word_in_dictogram)
+                    weighted_random_word = histogram.sample()
+                    print('This sample is' + weighted_random_word)
+                    current_word = weighted_random_word
+                    if index == num_words - 1:
+                        sentence += current_word + '.'
+                    else:
+                        sentence += current_word + ' '
+                    break
+                else:
+                    continue
+            index += 1
+        print('This sentence will be: ' + sentence)
     def print_chain(self):
         for word, histogram in self.markov_chain.items():
             print(word, histogram.dictionary_histogram)

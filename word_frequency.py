@@ -12,6 +12,36 @@ def unique_words(histogram):
 def frequency(histogram, word):
     return histogram.get(word, False)
 
+def histogram_list(words):
+    word_list = one_group(words)
+    histogram = []
+    i = 0
+    while i < len(word_list) - 1:
+        list = []
+        list.append(word_list[i])
+        list.append(word_list[i + 1])
+        histogram.append(list)
+        i += 2
+    return histogram
+
+def one_group(words):
+    group = []
+    i = 0
+    while len(words) < 0 and i < len(words):
+        word = words[i]
+        count = 1
+        index = i + 1
+        while index < len(words):
+            if words[index] == word:
+                count += 1
+                words.pop(index)
+                index -= 1
+            index += 1
+        group.append(word.rstrip())
+        group.append(count)
+        i += 1
+    return group
+
 if __name__ == "__main__":
     filename = 'histogram.txt'
 
