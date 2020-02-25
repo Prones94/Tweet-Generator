@@ -1,5 +1,5 @@
 from dictogram import Dictogram
-from random import choice, randint
+from random import choice, randint, random
 
 
 class MarkovChain:
@@ -33,7 +33,7 @@ class MarkovChain:
     def walk(self, num_words):
         sentence = random.choice(list(self.markov_chain))
         current = self.markov_chain[sentence]
-        for num in range(num_words):
+        for _ in range(num_words):
             print(current)
             word = current.sample()
             current = self.markov_chain[word]
