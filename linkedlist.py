@@ -56,22 +56,22 @@ class LinkedList(object):
         """Return the length of this linked list by traversing its nodes.
         TODO: Running time: O(???) Why and under what conditions?"""
         # TODO: Loop through all nodes and count one for each
-        target = self.head
+        node = self.head # assign new variable
         distance = 0
-        if self.head == None:
+        if self.head == None: # Checking head node if it contains None
           return 0
-        while target != None:
+        while node != None: # If node doesn't contain None
           distance += 1
-          target = target.next
+          node = node.next # Reassigns node from previous node to new node until node = None
         return distance
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
-        if self.head == None:
+        if self.head == None: # If head node is None, then assigns the new item given into the head and tail node, which are both the same
           self.head = Node(item)
           self.tail = self.head
-        else:
+        else: # If head node doesn't contain None, continue to the next node, reassign current tail node to equal new node and reassigns its tail to be tail.next
           self.tail.next = Node(item)
           self.tail = self.tail.next
 
@@ -95,16 +95,16 @@ class LinkedList(object):
         # TODO: Loop through all nodes to find item where quality(item) is True
         # TODO: Check if node's data satisfies given quality function
         if self.head == None:
-          print('List is empty')
+          print('List is empty') # List returns None, so empty list
           return
         else:
-          target = self.head
-          while target != None:
-            if quality(target.data):
-              return target.data
-            target = target.next
-            print('Cannot find, sorry')
-            return None
+          node = self.head 
+          while node != None: # Checks if node has None for data 
+            if quality(node.data): # If quality data function returns true using node.data
+              return node.data # return this node's data
+            node = node.next # Continue to next node
+          print('Cannot find, sorry') # If information cannot be found
+          return None
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
@@ -114,31 +114,54 @@ class LinkedList(object):
         # TODO: Update previous node to skip around node with matching data
         # TODO: Otherwise raise error to tell user that delete has failed
         # Hint: raise ValueError('Item not found: {}'.format(item))
+        current_node = self.head
+        previous = None
 
-        if self.head == None:
+        found = False
+
+        while current_node:
+          if self.head.data == item:
+            if self.head.next is not None:
+              self.head = self.head.next
+              found = True
+              break
+
+        if self.head == None: # Checks if this is an empty list
           raise ValueError('Item not found: {}'.format(item))
         else:
-          if self.head.data == item:
-            self.head = self.head.next
-            if self.head == None:
+          if self.head.data == item: # Checks if head node is the item
+            self.head = self.head.next # Reassigns head node to node after previous head
+            if self.head == None: # Checks if tail node is item 
               self.tail = self.head
             return
-          target = self.head
-          locked_on = False
-          while target.next != None:
-            if target.next.data == item:
-              locked_on = True
+          node = self.head # Points to the first node within list
+          locked_on = False # Random variable with boolean variable
+          while node.next != None: # loop goes through list of nodes 
+            if node.next.data == item: # If data from node is same as item looked for
+              locked_on = True # Somewhat visual change to represent item has been found
               break
-            target = target.next
+            node = node.next # Otherwise move on to the next node
           if locked_on:
-            if target.next == self.tail:
-              self.tail = target
-              target.next = None
+            if node.next == self.tail: # This automatically checks if tail node is the correct node with item that is being looked for
+              self.tail = node
+              node.next = None
               return
-            temp_var = target.next
+            temp_var = node.next # Assigns next pointer to equal the node after the deleted node then deletes temp variable
             del temp_var
           else:
             raise ValueError('Item not found: {}'.format(item))
+
+    def replace(self, item, new_data):
+      found = False
+      current_node = self.head
+
+      while current_node is not None:
+        if current_node.data == item:
+          current_node.data = new_data
+          return True
+        current_node = current_node.next
+      if not found:
+        raise ValueError('Item was not found: {}'.format(item))    
 
 
 def test_linked_list():
