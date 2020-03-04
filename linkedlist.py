@@ -78,12 +78,13 @@ class LinkedList(object):
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
         TODO: Running time: O(???) Why and under what conditions?"""
-        if self.head == Node(item):
-          self.tail = self.head
-        else:
-          current = self.head
-          self.head = Node(item)
-          self.head.net = current
+        new = Node(item)
+        if self.is_empty():
+          self.head = new
+          self.tail = new
+          return
+        new.next = self.head
+        self.head= new
           
 
 
@@ -110,58 +111,35 @@ class LinkedList(object):
         """Delete the given item from this linked list, or raise ValueError.
         TODO: Best case running time: O(???) Why and under what conditions?
         TODO: Worst case running time: O(???) Why and under what conditions?"""
-        # TODO: Loop through all nodes to find one whose data matches given item
-        # TODO: Update previous node to skip around node with matching data
-        # TODO: Otherwise raise error to tell user that delete has failed
-        # Hint: raise ValueError('Item not found: {}'.format(item))
-        current_node = self.head
-        previous = None
-
-        found = False
-
-        while current_node:
-          if self.head.data == item:
-            if self.head.next is not None:
-              self.head = self.head.next
-              found = True
-              break
-
-        if self.head == None: # Checks if this is an empty list
-          raise ValueError('Item not found: {}'.format(item))
-        else:
-          if self.head.data == item: # Checks if head node is the item
-            self.head = self.head.next # Reassigns head node to node after previous head
-            if self.head == None: # Checks if tail node is item 
-              self.tail = self.head
+        if self.is_empty():
+          raise ValueError(f'Item not found: {item}')
+          return
+        currentNode = self.head
+        if currentNode.data == item:
+          self.head = currentNode.next
+          if currentNode.next == None:
+            self.tail = None
+          return
+        previous_node = None
+        while currentNode != None:
+          if currentNode.data == item:
+            if currentNode.next == None:
+              self.tail = previous_node
+            previous_node.next = currentNode.next
             return
-          node = self.head # Points to the first node within list
-          locked_on = False # Random variable with boolean variable
-          while node.next != None: # loop goes through list of nodes 
-            if node.next.data == item: # If data from node is same as item looked for
-              locked_on = True # Somewhat visual change to represent item has been found
-              break
-            node = node.next # Otherwise move on to the next node
-          if locked_on:
-            if node.next == self.tail: # This automatically checks if tail node is the correct node with item that is being looked for
-              self.tail = node
-              node.next = None
-              return
-            temp_var = node.next # Assigns next pointer to equal the node after the deleted node then deletes temp variable
-            del temp_var
-          else:
-            raise ValueError('Item not found: {}'.format(item))
+          previous_node = currentNode
+          currentNode = currentNode.next
+          print(currentNode)
+        raise ValueError(f'Item not found: {item}')
 
-    def replace(self, item, new_data):
-      found = False
-      current_node = self.head
-
-      while current_node is not None:
-        if current_node.data == item:
-          current_node.data = new_data
-          return True
-        current_node = current_node.next
-      if not found:
-        raise ValueError('Item was not found: {}'.format(item))    
+    def replace(self, new_data):
+      for item in self.items():
+        if item[0] == new_data[0]:
+          print(f'Replacing {item} with: {new_data}')
+          self.delete(item)
+        else:
+          continue
+        self.append(new_data)    
 
 
 def test_linked_list():

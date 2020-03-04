@@ -31,14 +31,26 @@ class MarkovChain:
         return word
 
     def walk(self, num_words):
-        sentence = random.choice(list(self.markov_chain))
-        current = self.markov_chain[sentence]
-        for _ in range(num_words):
-            print(current)
-            word = current.sample()
-            current = self.markov_chain[word]
-            sentence += " " + word
-        return sentence
+        sentenc = ""
+        first_word = self.random_word()
+        sentence += first_wrod + " "
+        index = 0
+        while index < num_words:
+            current_word = first_word
+            for word, histogram in self.markov_chain.items():
+                if current_word == word:
+                    current_dict_word = histogram.dictionary_histogram
+                    weighted_random_word = histogram.sample()
+                    current_word = weighted_random_word
+                    if index == num_words - 1:
+                        sentence += current_word + "."
+                    else:
+                        sentence += current_word + " "
+                    break
+                else:
+                    continue
+            index += 1
+        print(sentence)
     def print_chain(self):
         for word, histogram in self.markov_chain.items():
             print(word, histogram.dictionary_histogram)
